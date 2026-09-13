@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dominik Cedro</title>
+    <style>
+        /* TECH-SILVER & STEEL BLUE PALETTE */
+        :root {
+            --bg-page: #e8e8e8;      /* Chłodny jasny szary / Srebrny */
+            --bg-content: #ffffff;   /* Czysta biel dla treści */
+            --border-color: #a0a0a0; /* Mocniejszy szary border */
+            --text-main: #222222;
+            --text-sub: #555555;
+            --accent-active: #3a5a7a; /* Stalowy błękit zamiast czerni */
+            --link-blue: #0044bb;
+        }
+
+        * { 
+            box-sizing: border-box; 
+            border-radius: 0 !important; /* Zero zaokrągleń */
+        }
+
+        body {
+            font-family: Verdana, Geneva, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+            font-size: 12px;
+        }
+
+        /* TOOLBAR STYLE HEADER */
+        header {
+            border-bottom: 2px solid var(--border-color);
+            background-color: #dcdcdc;
+            padding: 15px 0;
+            box-shadow: inset 0 -1px 0 #fff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 { 
+            margin: 0; 
+            font-size: 14px; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            color: #333;
+        }
+
+        nav button {
+            background: #f0f0f0;
+            border: 1px solid var(--border-color);
+            padding: 6px 18px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 4px;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        nav button:hover { background: #ffffff; }
+        
+        nav button.active { 
+            background: var(--accent-active); 
+            color: #ffffff; 
+            border-color: #2a4a6a;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .main-wrapper { 
+            margin-top: 50px; 
+            padding-bottom: 80px; 
+        }
+
+        /* CONTENT BOXES */
+        .box {
+            background: var(--bg-content);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+        }
+
+        /* PROFILE LAYOUT */
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 40px;
+        }
+
+        .profile-pic {
+            width: 200px;
+            border: 1px solid var(--border-color);
+            background: #eee;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin-top: 0;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: var(--accent-active);
+        }
+
+        /* PORTFOLIO ITEMS */
+        .entry {
+            border-left: 3px solid var(--border-color);
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .entry-title { font-weight: bold; font-size: 13px; color: #000; }
+        .entry-meta { font-size: 10px; color: var(--text-sub); text-transform: uppercase; margin-bottom: 5px; }
+
+        /* PHOTO GALLERY */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .photo-card {
+            border: 1px solid var(--border-color);
+            background: #fff;
+            padding: 12px;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border: 1px solid #eee;
+        }
+
+        .photo-data {
+            margin-top: 12px;
+            font-size: 10px;
+            color: var(--text-sub);
+            font-family: "Courier New", Courier, monospace; /* Bardziej techniczny font dla koordynatów */
+        }
+
+        /* UTILS */
+        .lang-nav { text-align: right; margin-bottom: 15px; }
+        .lang-link { 
+            background: none; border: none; text-decoration: underline; 
+            cursor: pointer; font-size: 10px; color: var(--link-blue); 
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+            padding: 30px 0;
+            text-align: center;
+            font-size: 10px;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        section { display: none; }
+        section.active { display: block; }
+
+        @media (max-width: 700px) {
+            .profile-layout { grid-template-columns: 1fr; text-align: center; }
+            .profile-pic { margin: 0 auto; }
+            .photo-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container header-flex">
+        <h1>Dominik Cedro</h1>
+        <nav>
+            <button onclick="showTab('home')" id="btn-home" class="active">Home</button>
+            <button onclick="showTab('portfolio')" id="btn-portfolio">Portfolio</button>
+            <button onclick="showTab('photos')" id="btn-photos">Zdjęcia</button>
+        </nav>
+    </div>
+</header>
+
+<div class="container main-wrapper">
+    <div class="lang-nav">
+        <button class="lang-link" onclick="setLang('pl')">polski</button> | 
+        <button class="lang-link" onclick="setLang('en')">english</button>
+    </div>
+
+    <!-- HOME -->
+    <section id="home" class="active">
+        <div class="box">
+            <div class="profile-layout">
+                <img src="./formapage/photo_me.png?auto=format&fit=crop&q=80&w=600" alt="Dominik Cedro" class="profile-pic">
+                
+                <div>
+                    <h2 class="lang-pl">O mnie</h2>
+                    <h2 class="lang-en">About me</h2>
+                    <h3 class="lang-pl">Witaj na mojej stronie</h3>
+                    <h3 class="lang-en">Welcome to my page.</h3>
+                    <p class="lang-pl">
+                Jestem programistą w Nokia Solutions and Networks, we Wrocławiu. 
+                Specjalizuję się w języku Python oraz rozwiązaniach DevOps. 
+                Jestem absolwentem Politechniki Wrocławskiej. 
+                Na moich studiach skupiałem się na informatyce w sektorze medycznym i biotechnologicznym oraz na technologiach 3D.
+                </p>
+                    <p class="lang-en">
+                I am a backend developer at Nokia Solutions and Networks, based in Wroclaw. 
+                Currently my focus is on Python and DevOps solutions.
+                I defended my engineering thesis in February 2026.
+                During my studies I worked on informatics applied in medicine and biotechnology.
+                Additonally I spent my time exploring 3D print.
+              </p>
+                    
+                    <p class="lang-pl">Obecnie rozwijam swoje kompetencje w <strong>C++</strong> oraz w zaawansowanej orkiestracji systemów.</p>
+                    <p class="lang-en">Currently, I am developing my skills in <strong>C++</strong> and advanced systems orchestration.</p>
+                    
+                     
+              
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+        <div class="box">
+            <h2 class="lang-pl">Doświadczenie i projekty</h2>
+            <h2 class="lang-en">Experience & projects</h2>
+            
+            <div class="entry">
+                <div class="entry-meta">Nokia / Wrocław</div>
+                <div class="entry-title">Backend Developer</div>
+                <p class="lang-pl">
+              Pracę w Nokii zacząłem w listopadzie 2025 roku. 
+              Od tamtego czasu zajmowałem się poniższymi rzeczami:
+                  <ul class="lang-pl">
+                <li>Tworzenie backendu w Django do kluczowej dla HR strony www.</li>
+                <li>Wsparcie dla powyższej strony, tworzenie automacji do procesowania dużych raportów w csv/xlsx z pomocą Jupyter notebooks.</li>
+                <li>Tworzenie aplikacji CLI w Pythonie (framework Typer) do obsługi procesu backup and restore dla NMS.</li>
+                <li>Tworzenie wewnętrznego systemu rezerwacji zasobów to symulacji sieci telekomunikacyjnej.</li>
+                <li>Zarządzanie serwerami poprzez Kubernetes/Argo Workflows.</li>
+                  </ul>
+            </p>
+
+                <p class="lang-en">
+              I started working at Nokia in November 2025. Since then, I have been involved in the following:
+                  <ul class="lang-en">
+                <li> Developing the Django backend for a key HR website.</li>
+                <li> Supporting the aforementioned website and creating automation for processing large CSV/XLSX reports wth Jupyter notebooks</li>
+                <li>Developing a Python CLI application (using the Typer framework) to handle the backup and restore process for the NMS.</li>
+                <li>Creating a resource reservation system for telecommunications network simulations.</li>
+                <li>Managing servers using Kubernetes and Argo Workflows.</li>
+                  </ul>
+                </p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-meta">Projekt / Python / RPi</div>
+                <div class="entry-title">Raspberry Pulse Sensor</div>
+                <p class="lang-pl">
+              Aplikacja do monitorowania danych medycznych z czujnika MAX30102. 
+              Stworzona jako zaliczenie kursu "Programming in Python" na Politechnice Wrocławskiej.
+            </p>
+                <p class="lang-en">
+              Application for monitoring medical data from the MAX30102 sensor.
+            Made as my final project for 'Programming in Python' course at Wrocław University of Science and Technology.</p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-meta">Projekt / TDD / SQL</div>
+                <div class="entry-title">Finance Manager App</div>
+                <p class="lang-pl">Zarządzanie finansami oparte o relacyjne bazy danych i testy jednostkowe.</p>
+                <p class="lang-en">Finance management based on relational databases and unit testing.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ZDJĘCIA -->
+    <section id="photos">
+        <div class="box" style="padding: 25px; margin-bottom: 25px;">
+            <p class="lang-pl">Lubię robić zdjęcia w ciekawych miejscach.</p>
+            <p class="lang-en">I like taking photos in interesting places.</p>
+        </div>
+
+        <div class="photo-grid">
+            <div class="photo-card">
+                <img src="./formapage/IMG_0922.JPG?auto=format&fit=crop&q=80&w=600" alt="Photo 1">
+                <div class="photo-data">Salt beds on the south coast of Gozo island.</div>
+                <div class="photo-data">36.0277781 N, 14.2127197 E</div>
+            </div>
+            <div class="photo-card">
+                <img src="./formapage/IMG_0703.JPG?auto=format&fit=crop&q=80&w=600" alt="Photo 2">
+                <div class="photo-data">Red stone of Skazka Canyon.</div>
+                <div class="photo-data">42.1558136 N, 77.3535856 E</div>
+            </div>
+            <div class="photo-card">
+                <img src="./formapage/IMG_3.jpg?auto=format&fit=crop&q=80&w=600" alt="Photo 3">
+                <div class="photo-data">East slope of Mulchra river valley under red skies.</div>
+                <div class="photo-data">43.0790531 N, 42.713111 E</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        Dominik Cedro | Styled by AI, written by me | Wrocław, PL
+    </footer>
+</div>
+
+<script>
+    function showTab(tabId) {
+        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        document.getElementById('btn-' + tabId).classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function setLang(lang) {
+        const isPl = (lang === 'pl');
+        document.querySelectorAll('.lang-pl').forEach(el => el.style.display = isPl ? 'block' : 'none');
+        document.querySelectorAll('.lang-en').forEach(el => el.style.display = isPl ? 'none' : 'block');
+    }
+    setLang('pl');
+</script>
+
+</body>
+</html>
